@@ -1,0 +1,15 @@
+signature Language.Subst.Indef where
+
+import Control.Lens.Plated (Plated)
+import Control.Lens.Prism (Prism')
+
+data Term
+instance Plated Term
+
+data F
+instance Eq F
+
+_B :: Prism' Term Int
+_F :: Prism' Term F
+
+_Lam :: Prism' Term Term
