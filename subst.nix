@@ -1,8 +1,8 @@
-{ mkDerivation, base, lens, rev-state, stdenv }:
+{ mkDerivation, base, lens, stdenv }:
 mkDerivation {
   pname = "subst";
   version = "0.1.0.0";
   src = ./.;
-  libraryHaskellDepends = [ base lens rev-state ];
+  libraryHaskellDepends = [ base lens ];
   license = stdenv.lib.licenses.bsd3;
 }
