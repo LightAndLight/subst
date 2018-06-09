@@ -18,20 +18,21 @@ cabal-version:       >=1.10
 
 executable example
   main-is:             Example.hs
-  build-depends:       base >=4.9 && <5, term, term-subst, lens
+  build-depends:       base >=4.9 && <5, expr, expr-subst, lens
   hs-source-dirs:      app
   default-language:    Haskell2010
 
-library term
-  exposed-modules:     Term
+library expr
+  exposed-modules:     Expr
+                     , Expr.Subst.Impl
   build-depends:       base >=4.9 && <5, lens
   hs-source-dirs:      src
   default-language:    Haskell2010
 
-library term-subst
-  reexported-modules:  Term.Subst
-  mixins:              subst (Language.Subst as Term.Subst)
-                         requires (Language.Subst.Indef as Term)
-  build-depends:       base >=4.9 && <5, term, subst, lens
+library expr-subst
+  reexported-modules:  Expr.Subst
+  mixins:              subst (Language.Subst as Expr.Subst)
+                         requires (Language.Subst.Indef as Expr.Subst.Impl)
+  build-depends:       base >=4.9 && <5, expr, subst, lens
   hs-source-dirs:      src
   default-language:    Haskell2010

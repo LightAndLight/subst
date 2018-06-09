@@ -1,7 +1,7 @@
 module Main where
 
-import Term
-import Term.Subst
+import Expr
+import Expr.Subst
 
 main :: IO ()
 main = do
