@@ -3,7 +3,7 @@
 
 name:                subst
 version:             0.1.0.0
--- synopsis:
+synopsis:            De Bruijn indices using Backpack-y Prisms and Plated
 -- description:
 license:             BSD3
 --                   Must be spelled with a 'C' for nix
@@ -11,7 +11,7 @@ license:             BSD3
 author:              Isaac Elliott
 maintainer:          isaace71295@gmail.com
 -- copyright:
--- category:
+category:            Language
 build-type:          Simple
 extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
@@ -19,8 +19,6 @@ cabal-version:       >=1.10
 library
   signatures:          Language.Subst.Indef
   exposed-modules:     Language.Subst
-  -- other-modules:
-  -- other-extensions:
   ghc-options:         -Wunused-imports -Werror
   build-depends:       base >=4.9 && <5
                      , lens >=4.1 && <4.17
