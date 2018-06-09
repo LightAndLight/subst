@@ -3,13 +3,23 @@ signature Language.Subst.Indef where
 import Control.Lens.Plated (Plated)
 import Control.Lens.Prism (Prism')
 
+-- | The Term datatype
+--
+-- It must have an instance of 'Plated'
 data Term
 instance Plated Term
 
+-- | The type of free variables inside the 'Term'
+--
+-- It must have an instance of 'Eq'
 data F
 instance Eq F
 
+-- | 'Prism'' that matches on a De Bruijn variable 'Term'
 _B :: Prism' Term Int
+
+-- | 'Prism'' that matches on a free variable 'Term'
 _F :: Prism' Term F
 
+-- | 'Prism'' that matches on a binder 'Term'
 _Binder :: Prism' Term Term
