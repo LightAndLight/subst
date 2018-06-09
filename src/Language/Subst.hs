@@ -9,7 +9,7 @@ import Control.Lens.Setter ((%~))
 import Language.Subst.Indef
 
 abstract :: F -> Term -> Term
-abstract v = transform f
+abstract v = (_Lam #) . transform f
   where
     f =
       (\t ->
