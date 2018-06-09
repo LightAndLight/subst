@@ -2,29 +2,27 @@
 module Language.Subst where
 
 import Control.Lens.Fold ((^?))
-import Control.Lens.Plated (transform)
+import Control.Lens.Plated (transform, transformM)
 import Control.Lens.Review ((#))
-import Control.Lens.Setter ((%~))
+import Control.Lens.Setter (over)
+import Control.Monad ((<=<))
+import Control.Monad.RevState (evalState, modify, get)
 
 import Language.Subst.Indef
 
 abstract :: F -> Term -> Term
-abstract v = (_Lam #) . transform f
+abstract v = (_Binder #) . flip evalState 0 . transformM f
   where
     f =
+      (\t -> maybe (pure t) (\_ -> t <$ modify (+1)) $ t ^? _Binder) <=<
       (\t ->
          case t ^? _F of
-           Nothing -> t
-           Just v'
-             | v == v' -> _B # 0
-             | otherwise -> t) .
-      (_B %~ (+1))
+           Just v' | v == v' -> (_B #) <$> get
+           _ -> pure t) <=<
+      (pure . over _B (+1))
 
-instantiate :: Term -> Term -> Term
-instantiate f x =
-  case f ^? _Lam of
-    Nothing -> f
-    Just body -> transform fun body
+instantiate :: Term -> Term -> Maybe Term
+instantiate f x = transform fun <$> f ^? _Binder
   where
     fun t =
       case t ^? _B of

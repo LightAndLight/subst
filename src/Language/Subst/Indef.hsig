@@ -12,4 +12,4 @@ instance Eq F
 _B :: Prism' Term Int
 _F :: Prism' Term F
 
-_Lam :: Prism' Term Term
+_Binder :: Prism' Term Term

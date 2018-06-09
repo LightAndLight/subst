@@ -11,6 +11,7 @@ data Term
   | BoundVar Int
   | App Term Term
   | Abs Term
+  | Int Int
   deriving (Generic, Show)
 
 makePrisms ''Term
@@ -30,5 +31,5 @@ _B = _BoundVar
 _F :: Prism' Term F
 _F = _FreeVar
 
-_Lam :: Prism' Term Term
-_Lam = _Abs
+_Binder :: Prism' Term Term
+_Binder = _Abs
