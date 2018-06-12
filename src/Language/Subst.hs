@@ -19,7 +19,10 @@ abstract v = (_Binder #) . fun 0
         Just v'
           | v == v' -> _B # n
           | otherwise -> t
-        _ -> over plate (fun $ maybe n (\_ -> n+1) (t ^? _Binder)) t
+        _ ->
+          case t ^? _Binder of
+            Nothing -> over plate (fun n) t
+            Just{} -> over plate (fun $ n+1) t
 
 -- | Attempt to apply a value to a function
 --
@@ -32,7 +35,10 @@ instantiate f x = fun 0 <$> f ^? _Binder
   where
     fun !n t =
       case t ^? _B of
-        Nothing -> over plate (fun $ maybe n (\_ -> n+1) (t ^? _Binder)) t
         Just n'
           | n == n' -> x
           | otherwise -> _B # (n'-1)
+        Nothing ->
+          case t ^? _Binder of
+            Nothing -> over plate (fun n) t
+            Just{} -> over plate (fun $ n+1) t

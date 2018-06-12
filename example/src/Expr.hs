@@ -18,3 +18,4 @@ makePrisms ''Expr
 
 instance Plated Expr where
   plate = gplate
+  {-# inline plate #-}

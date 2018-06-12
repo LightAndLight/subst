@@ -19,7 +19,7 @@ cabal-version:       >=1.10
 library
   signatures:          Language.Subst.Indef
   exposed-modules:     Language.Subst
-  ghc-options:         -Wunused-imports -Werror
+  ghc-options:         -O -Wunused-imports -Werror
   build-depends:       base >=4.9 && <5
                      , lens >=4.1 && <4.17
   hs-source-dirs:      src
