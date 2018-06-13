@@ -37,7 +37,7 @@ instantiate f x = fun 0 <$> f ^? _Binder
       case t ^? _B of
         Just n'
           | n == n' -> x
-          | otherwise -> _B # (n'-1)
+          | otherwise -> t
         Nothing ->
           case t ^? _Binder of
             Nothing -> over plate (fun n) t
