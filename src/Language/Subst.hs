@@ -2,7 +2,7 @@
 module Language.Subst where
 
 import Control.Lens.Fold ((^?))
-import Control.Lens.Plated (transformM, plate)
+import Control.Lens.Plated (transformM)
 import Control.Lens.Review ((#))
 import Control.Lens.Setter (over)
 import Control.Monad ((<=<))
@@ -22,11 +22,16 @@ abstract v = (_Binder #) . flip evalState 0 . transformM f
       (pure . over _B (+1))
 
 instantiate :: Term -> Term -> Maybe Term
-instantiate f x = fun 0 <$> f ^? _Binder
+instantiate f x = flip evalState 0 . transformM fun <$> f ^? _Binder
   where
-    fun n t =
-      case t ^? _B of
-        Nothing -> over plate (fun $ maybe n (\_ -> n+1) (t ^? _Binder)) t
-        Just n'
-          | n == n' -> x
-          | otherwise -> _B # (n'-1)
+    fun =
+      (\t ->
+        case t ^? _B of
+          Nothing -> pure t
+          Just n -> do
+            n' <- get
+            pure $
+              if n == n'
+              then x
+              else _B # (n'-1)) <=<
+      (\t -> maybe (pure t) (\_ -> t <$ modify (+1)) (t ^? _Binder))
