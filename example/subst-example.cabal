@@ -14,7 +14,7 @@ maintainer:          isaace71295@gmail.com
 -- category:
 build-type:          Simple
 extra-source-files:  ChangeLog.md
-cabal-version:       >=1.10
+cabal-version:       >=2
 
 executable example
   main-is:             Example.hs

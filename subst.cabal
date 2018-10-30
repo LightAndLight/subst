@@ -14,7 +14,7 @@ maintainer:          isaace71295@gmail.com
 category:            Language
 build-type:          Simple
 extra-source-files:  ChangeLog.md
-cabal-version:       >=1.10
+cabal-version:       >=2
 
 library
   signatures:          Language.Subst.Indef

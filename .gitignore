@@ -1,4 +1,4 @@
-
+.ghc.*
 dist/
 dist-newstyle/
 result
