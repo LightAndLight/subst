@@ -17,3 +17,5 @@ main = do
   let Just constant1 = instantiate constant (Int 1)
   print constant1
   print $ instantiate constant1 (Int 2)
+
+  print . abstract "x" $ App (Abs $ FreeVar "x") (Abs $ FreeVar "x")

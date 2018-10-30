@@ -1,0 +1,20 @@
+signature Language.Subst.Bound.Indef where
+
+import Control.Lens.Lens (Lens')
+
+-- | The type of De Bruijn variables inside the 'Term'
+--
+-- It must have an instance of 'Eq', but only the
+-- index components should be compared for equality
+--
+-- i.e.
+--
+-- @
+-- instance Eq B where
+--   a == b = a ^. index == b ^. index
+-- @
+data B
+instance Eq B
+
+-- | The index component of the variable
+index :: Lens' B Int

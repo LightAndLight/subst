@@ -1,0 +1,7 @@
+signature Language.Subst.Free.Indef where
+
+-- | The type of free variables inside the 'Term'
+--
+-- It must have an instance of 'Eq'
+data F
+instance Eq F

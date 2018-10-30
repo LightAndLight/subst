@@ -7,6 +7,8 @@ import Control.Lens.Plated (plate)
 import Control.Lens.Review ((#))
 import Control.Lens.Setter (over)
 
+import Language.Subst.Bound.Indef
+import Language.Subst.Free.Indef
 import Language.Subst.Indef
 
 -- | Abstract over a particular free variable in a 'Term'
@@ -34,7 +36,7 @@ instantiate :: Term -> Term -> Maybe Term
 instantiate f x = fun 0 <$> f ^? _Binder
   where
     fun !n t =
-      case t ^? _B of
+      case t ^? _B.index of
         Just n'
           | n == n' -> x
           | otherwise -> t
